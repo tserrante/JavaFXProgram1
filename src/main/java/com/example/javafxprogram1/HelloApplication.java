@@ -24,14 +24,7 @@ public class HelloApplication extends Application {
 
         button = new Button("This is a button");
 
-        button.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent actionEvent)
-            {
-                System.out.println("Anonymous inner class");
-            }
-        });
+        button.setOnAction(e -> System.out.println("This is a lambda"));
 
         StackPane layout = new StackPane();
         layout.getChildren().add(button);
