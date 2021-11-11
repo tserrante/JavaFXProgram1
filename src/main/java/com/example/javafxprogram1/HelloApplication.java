@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application implements EventHandler<ActionEvent>  {
+public class HelloApplication extends Application {
 
 
     Button button;
@@ -24,7 +24,14 @@ public class HelloApplication extends Application implements EventHandler<Action
 
         button = new Button("This is a button");
 
-        button.setOnAction(this);
+        button.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                System.out.println("Anonymous inner class");
+            }
+        });
 
         StackPane layout = new StackPane();
         layout.getChildren().add(button);
@@ -40,12 +47,6 @@ public class HelloApplication extends Application implements EventHandler<Action
         launch(args);
     }
 
-    @Override
-    public void handle(ActionEvent event)
-    {
-        if(event.getSource() == button)
-        {
-            System.out.println("This will be in the terminal");
-        }
-    }
+
+
 }
