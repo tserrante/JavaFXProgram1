@@ -18,7 +18,7 @@ import java.io.IOException;
 public class HelloApplication extends Application {
 
     Stage window;
-    Scene scene1, scene2;
+    Button button;
 
     public static void main(String[] args)
     {
@@ -29,35 +29,16 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException
     {
         window = stage;
+        window.setTitle("Main Window");
 
-        Label label1 = new Label("Welcome to the first scene!");
+        button = new Button("Click me");
+        button.setOnAction(e -> AlertBox.display("Alert Box", "this is the new window"));
+        StackPane layout = new StackPane();
+        layout.getChildren().add(button);
 
-        Button button1 = new Button("Go to scene 2");
-
-        button1.setOnAction(e -> window.setScene(scene2));
-
-        // layout 1 - children are laid out in a vertical column
-        // vbox is a layout that stacks all object on top of eachother in a column
-        // this particular vbox spaces them 20 pixels
-        VBox layout1 = new VBox(20 );
-        layout1. getChildren().addAll(label1, button1);
-
-        scene1 = new Scene(layout1, 200, 200);
-
-        Label label2 = new Label("Welcome to the second scene!");
-
-        Button button2 = new Button("Go to scene 1");
-
-        button2.setOnAction(e -> window.setScene(scene1));
-
-        // Layout 2
-        StackPane layout2 = new StackPane();
-        layout2.getChildren().addAll(label2, button2);
-        scene2 = new Scene(layout2, 600, 300);
-
-        window.setScene(scene1);
-        window.setTitle("This is a title");
-        window.show();
+         Scene scene = new Scene(layout, 300, 250);
+         window.setScene(scene);
+         window.show();
     }
 
 
