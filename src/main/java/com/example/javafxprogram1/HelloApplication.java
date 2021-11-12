@@ -5,6 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,7 +22,7 @@ import java.io.IOException;
 public class HelloApplication extends Application {
 
     Stage window;
-    Button button;
+    //Button button;
 
     public static void main(String[] args)
     {
@@ -28,17 +32,27 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException
     {
+        // create an ellipse
+        Ellipse ellipse = new Ellipse(110, 70);
+        ellipse.setFill(Color.LIGHTBLUE);
+
+        // create text
+        Text text = new Text("My Shapes");
+        text.setFont(new Font("Arial Bold", 24));
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(ellipse, text);
+
+        Scene scene = new Scene(stackPane, 350, 230, Color.LIGHTYELLOW);
+
         window = stage;
-        window.setTitle("Main Window");
 
-        button = new Button("Click me");
-        button.setOnAction(e -> AlertBox.display("Alert Box", "this is the new window"));
-        StackPane layout = new StackPane();
-        layout.getChildren().add(button);
+        window.setTitle("Shapes and Text");
+        window.setScene(scene);
+        window.show();
 
-         Scene scene = new Scene(layout, 300, 250);
-         window.setScene(scene);
-         window.show();
+
+
     }
 
 
