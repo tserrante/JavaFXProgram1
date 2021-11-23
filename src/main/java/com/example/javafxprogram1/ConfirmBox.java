@@ -9,9 +9,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class AlertBox
+public class ConfirmBox
 {
-    public static void display(String title, String message)
+
+    static boolean answer;
+
+    public static boolean display(String title, String message)
     {
         Stage window = new Stage();
         // blocks user inputs with other windows until this window is closed
@@ -21,17 +24,29 @@ public class AlertBox
 
         Label label = new Label();
         label.setText(message);
-        Button closeButton = new Button("Close this window");
-        closeButton.setOnAction(e -> window.close());
+
+        //create two buttons
+        Button yesButton = new Button("Yes");
+        Button noButton = new Button("No");
+
+        yesButton.setOnAction(e -> {
+            answer = true;
+            window.close();
+        });
+        noButton.setOnAction(e -> {
+            answer = false;
+            window.close();
+        });
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, closeButton);
+        layout.getChildren().addAll(label, yesButton, noButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
 
         window.setScene(scene);
         window.showAndWait();
-    }
 
+        return answer;
+    }
 }
