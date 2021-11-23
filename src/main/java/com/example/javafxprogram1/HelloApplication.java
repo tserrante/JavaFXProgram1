@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -18,8 +19,6 @@ import java.util.Stack;
 public class HelloApplication extends Application  {
 
     Stage window;
-    Scene scene;
-    Button button;
 
     public static void main(String[] args)
     {
@@ -31,39 +30,27 @@ public class HelloApplication extends Application  {
     {
         window = primaryStage;
         window.setTitle("Title of Window");
-        window.setOnCloseRequest(e ->
-        {
-            // the user wants to close, we will consume the event to stop
-            // automatic closing
-            e.consume();
-            closeProgram();
-        });
 
-        button = new Button("Close Program");
-        button.setOnAction(e -> closeProgram());
+        HBox topMenu = new HBox();
+        Button buttonA = new Button("File");
+        Button buttonB = new Button("Edit");
+        Button buttonC = new Button("View");
+        topMenu.getChildren().addAll(buttonA, buttonB, buttonC);
 
-        StackPane layout = new StackPane();
-        layout.getChildren().add(button);
+        VBox leftMenu = new VBox();
+        Button buttonD = new Button("D");
+        Button buttonE = new Button("E");
+        Button buttonF = new Button("F");
+        leftMenu.getChildren().addAll(buttonD, buttonE, buttonF);
 
-        scene = new Scene(layout, 300, 250);
+        BorderPane borderPane = new BorderPane();
+        borderPane.setTop(topMenu);
+        borderPane.setLeft(leftMenu);
 
+
+        Scene scene = new Scene(borderPane, 300, 250);
         window.setScene(scene);
         window.show();
 
     }
-
-    private void closeProgram()
-    {
-        Boolean answer = ConfirmBox.display("Title", "Are you sure you want to exit?");
-
-        if(answer)
-        {
-            System.out.println("Proper close");
-            window.close();
-
-        }
-
-    }
-
-
 }
