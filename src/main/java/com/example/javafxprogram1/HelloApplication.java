@@ -30,19 +30,38 @@ public class HelloApplication extends Application  {
     public void start(Stage primaryStage) throws IOException
     {
         window = primaryStage;
-
-        button = new Button("Click Me!");
-        button.setOnAction(e ->
+        window.setTitle("Title of Window");
+        window.setOnCloseRequest(e ->
         {
-            boolean result = ConfirmBox.display("Question Box", "Yes or no to question");
+            // the user wants to close, we will consume the event to stop
+            // automatic closing
+            e.consume();
+            closeProgram();
         });
+
+        button = new Button("Close Program");
+        button.setOnAction(e -> closeProgram());
+
         StackPane layout = new StackPane();
         layout.getChildren().add(button);
+
         scene = new Scene(layout, 300, 250);
 
         window.setScene(scene);
-        window.setTitle("Title of Window");
         window.show();
+
+    }
+
+    private void closeProgram()
+    {
+        Boolean answer = ConfirmBox.display("Title", "Are you sure you want to exit?");
+
+        if(answer)
+        {
+            System.out.println("Proper close");
+            window.close();
+
+        }
 
     }
 
