@@ -19,6 +19,8 @@ import java.util.Stack;
 public class HelloApplication extends Application  {
 
     Stage window;
+    Scene scene;
+    Button button;
 
     public static void main(String[] args)
     {
@@ -31,38 +33,36 @@ public class HelloApplication extends Application  {
         window = primaryStage;
         window.setTitle("Title of Window");
 
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        grid.setVgap(8);
-        grid.setHgap(10);
-
-        // Name label
-        Label nameLabel = new Label("Username: ");
-        GridPane.setConstraints(nameLabel, 0, 0);
-
-        // name input
+        // form
         TextField nameInput = new TextField();
-        nameInput.setPromptText("Username");
+        button = new Button("Click me");
+        button.setOnAction(e -> isInt(nameInput, nameInput.getText()));
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(20, 20, 20, 20));
+        layout.getChildren().addAll(nameInput, button);
 
-        GridPane.setConstraints(nameInput, 1, 0);
-
-        // pass label
-        Label passLabel = new Label("Password: ");
-        GridPane.setConstraints(passLabel, 0, 1);
-
-        // pass input
-        TextField passwordInput = new TextField();
-        passwordInput.setPromptText("password");
-        GridPane.setConstraints(passwordInput, 1, 1);
-
-        Button loginButton = new Button("Login");
-        GridPane.setConstraints(loginButton, 1, 2);
-
-        grid.getChildren().addAll(nameLabel, nameInput, passLabel, passwordInput, loginButton);
-
-        Scene scene = new Scene(grid, 300, 200);
+        scene = new Scene(layout, 300, 250);
 
         window.setScene(scene);
         window.show();
     }
+
+    private boolean isInt(TextField nameInput, String text)
+    {
+        try
+        {
+
+            int age = Integer.parseInt(text);
+            System.out.println("User is: " + age);
+            return true;
+
+        }
+        catch (NumberFormatException e)
+        {
+            System.out.println("Error: " + text + " is not a valid number");
+            return false;
+        }
+    }
+
+
 }
